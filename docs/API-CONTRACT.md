@@ -70,24 +70,37 @@ type, blog, archive) with a 60s timeout, sequentially via WP-Cron.
 
 ## 3. Plugin updates
 
-### POST /v1/plugin/update
+### POST /api/plugin/update
 
-Request: `{ "key": "...", "site": "...", "version": "1.2.0" }`
+Auth: `Authorization: Bearer <key>` header (same Sanctum token as `/api/sites`).
+Served by the main app at `app.pagespeedplus.com` (not a separate `api.*` host).
+
+Request: `{ "site": "...", "version": "1.13.3" }`
+
+Implemented in `PageSpeedPlus-v3` as `PluginController@update`: it reads the
+latest GitHub Release of `leaderint/pagespeedplus-wordpress-plugin` (public,
+cached 1h) and returns the payload below. `package` is the release's
+`pagespeedplus.zip` asset URL — WordPress downloads it unauthenticated, which
+works because the repo is public. Publishing a version = cutting a GitHub
+Release; nothing changes server-side per release.
 
 If a newer build exists **and the license is current**:
 
 ```json
 {
-  "new_version": "1.3.0",
-  "package": "https://api.pagespeedplus.com/v1/plugin/download?token=<short-lived-signed-token>",
+  "new_version": "1.13.4",
+  "package": "https://github.com/leaderint/pagespeedplus-wordpress-plugin/releases/download/v1.13.4/pagespeedplus.zip",
   "requires": "5.8",
   "tested": "6.8",
-  "changelog": "<h4>1.3.0</h4><ul><li>...</li></ul>"
+  "changelog": "<h4>1.13.4</h4><ul><li>...</li></ul>"
 }
 ```
 
-`package` must be a URL WordPress can GET to download the zip — sign it and
-expire it (e.g. 15 minutes) so the download link itself is license-gated.
+`package` must be a URL WordPress can GET to download the zip. Current
+implementation points it at the public GitHub Release asset (no signing
+needed — GPL, so this is a commercial gate, not DRM; the update *offer* is
+license-gated by the Bearer auth on this endpoint). If you later move to a
+private/closed download, switch `package` to a short-lived signed URL.
 No update / lapsed license: return `{}`.
 
 ## Plugin-side behavior summary

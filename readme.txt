@@ -4,7 +4,7 @@ Tags: cache, performance, core web vitals, lazy load, minify
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.13.3
+Stable tag: 1.13.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ Yes. Page caching and all optimizations work everywhere. Browser-cache/GZIP rule
 Run only one page-caching plugin at a time. PageSpeedPlus will not overwrite another plugin's advanced-cache.php drop-in.
 
 == Changelog ==
+
+= 1.13.4 =
+* Self-update: the updater now authenticates with the API key as a Bearer token and checks app.pagespeedplus.com/api/plugin/update (consistent with the license/cache-warm calls).
 
 = 1.13.3 =
 * Cache tab: clarified that the plugin fires one-off warms, while recurring schedules and warm regions are managed in the PageSpeedPlus dashboard — added a deep-link (filter: psp_cache_warm_url).
