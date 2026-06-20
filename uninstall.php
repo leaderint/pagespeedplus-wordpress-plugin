@@ -15,6 +15,8 @@ delete_option( 'psp_critical_css_store' );
 delete_option( 'psp_warm_last_remote' );
 delete_option( 'psp_self_hosted_fonts' );
 delete_option( 'psp_fonts_queue' );
+delete_option( 'psp_self_hosted_scripts' );
+delete_option( 'psp_scripts_queue' );
 // (disable_on_urls lives inside pagespeedplus_settings, already removed above.)
 delete_option( 'psp_license_state' );
 delete_option( 'psp_sites' );
@@ -26,6 +28,7 @@ wp_clear_scheduled_hook( 'psp_preload_batch' );
 wp_clear_scheduled_hook( 'psp_webp_batch' );
 wp_clear_scheduled_hook( 'psp_ccss_batch' );
 wp_clear_scheduled_hook( 'psp_fonts_fetch' );
+wp_clear_scheduled_hook( 'psp_scripts_fetch' );
 wp_clear_scheduled_hook( 'psp_license_check' );
 
 // Remove our advanced-cache drop-in.
@@ -42,6 +45,7 @@ $psp_dirs = array(
 	WP_CONTENT_DIR . '/cache/pagespeedplus/',
 	WP_CONTENT_DIR . '/cache/pagespeedplus-assets/',
 	WP_CONTENT_DIR . '/cache/pagespeedplus-fonts/',
+	WP_CONTENT_DIR . '/cache/pagespeedplus-scripts/',
 );
 foreach ( $psp_dirs as $psp_dir ) {
 	if ( ! is_dir( $psp_dir ) ) {

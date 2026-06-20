@@ -4,7 +4,7 @@ Tags: cache, performance, core web vitals, lazy load, minify
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.13.4
+Stable tag: 1.14.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,12 @@ Yes. Page caching and all optimizations work everywhere. Browser-cache/GZIP rule
 Run only one page-caching plugin at a time. PageSpeedPlus will not overwrite another plugin's advanced-cache.php drop-in.
 
 == Changelog ==
+
+= 1.14.0 =
+* Self-host third-party scripts (e.g. Google Analytics/gtag): download listed external scripts locally + refresh every 12h.
+* Lazy-load CSS background images (inline-style) via IntersectionObserver, with exclusions.
+* LQIP: blurry low-quality placeholders behind lazy images (generated on upload).
+* Script Manager: dequeue specific scripts/styles by handle, optionally per-URL.
 
 = 1.13.4 =
 * Self-update: the updater now authenticates with the API key as a Bearer token and checks app.pagespeedplus.com/api/plugin/update (consistent with the license/cache-warm calls).
