@@ -75,17 +75,26 @@ class PSP_Options {
 			// Media.
 			'lazyload_images'        => 1,
 			'lazyload_iframes'       => 1,
+			'lazyload_bg'            => 0, // Lazy-load inline-style CSS background images.
 			'lazyload_exclude'       => '',
 			'lazyload_skip_first'    => 2, // Skip first N images (likely above the fold / LCP).
 			'add_missing_dimensions' => 1,
 			'youtube_facade'         => 0,
 			'preload_lcp_image'      => 1,
+			'lqip_enabled'           => 0, // Blurry low-quality placeholders behind lazy images.
 
 			// Fonts.
 			'font_display_swap'      => 1,
 			'preconnect_fonts'       => 1,
 			'self_host_fonts'        => 0,
 			'preload_fonts'          => '',
+
+			// Third-party scripts.
+			'self_host_scripts'      => 0,
+			'self_host_scripts_urls' => '',
+
+			// Script manager (per-URL dequeue rules).
+			'script_manager_rules'   => '',
 
 			// Hints.
 			'dns_prefetch'           => '',

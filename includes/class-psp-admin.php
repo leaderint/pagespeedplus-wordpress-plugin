@@ -320,12 +320,15 @@ class PSP_Admin {
 			'avif_enabled',
 			'lazyload_images',
 			'lazyload_iframes',
+			'lazyload_bg',
+			'lqip_enabled',
 			'add_missing_dimensions',
 			'youtube_facade',
 			'preload_lcp_image',
 			'font_display_swap',
 			'preconnect_fonts',
 			'self_host_fonts',
+			'self_host_scripts',
 			'auto_resource_hints',
 			'disable_emojis',
 			'disable_embeds',
@@ -553,6 +556,23 @@ class PSP_Admin {
 		$this->textarea( 'delay_js_exclude', __( 'Delay Exclusions', 'pagespeedplus' ), __( 'One pattern per line, matched as a substring of the script tag — a filename fragment is enough. Exclude consent banners and above-the-fold sliders.', 'pagespeedplus' ), 4, "cookie-consent\nslider\nrecaptcha" );
 		$this->checkbox( 'prefetch_links', __( 'Prefetch Links on Hover', 'pagespeedplus' ), __( 'Preload the next page the moment a visitor hovers (desktop) or taps (mobile) a link, so navigation feels instant. Skips external links, downloads, cart/checkout/admin, query-string and nofollow links; respects Save-Data and slow connections.', 'pagespeedplus' ) );
 		$this->textarea( 'prefetch_exclude', __( 'Prefetch Exclusions', 'pagespeedplus' ), __( 'One URL path fragment per line to never prefetch. Add data-no-prefetch to a specific link to skip it.', 'pagespeedplus' ), 4, "/cart\n/checkout\n/my-account\n?add-to-cart" );
+
+		// Self-host third-party scripts.
+		$this->checkbox( 'self_host_scripts', __( 'Self-Host Third-Party Scripts', 'pagespeedplus' ), __( 'Download the external scripts listed below to your server and serve them locally — removes the third-party request/DNS and fixes the "serve static assets with an efficient cache policy" warning for them. Fetched in the background and refreshed every 12h.', 'pagespeedplus' ) );
+		if ( PSP_Options::get( 'self_host_scripts' ) ) {
+			$hosted = PSP_Scripts::hosted_count();
+			$this->row_open( __( 'Self-Hosted Scripts Status', 'pagespeedplus' ), __( 'External scripts currently downloaded and served from your server.', 'pagespeedplus' ) );
+			if ( $hosted ) {
+				echo '<span class="psp-pill is-ok">' . sprintf( esc_html( _n( '%d script self-hosted', '%d scripts self-hosted', $hosted, 'pagespeedplus' ) ), (int) $hosted ) . '</span>';
+			} else {
+				echo '<span class="psp-pill is-off">' . esc_html__( 'None yet', 'pagespeedplus' ) . '</span> <span class="description">' . esc_html__( 'Add URLs below, save, then load a front-end page to trigger the download.', 'pagespeedplus' ) . '</span>';
+			}
+			$this->row_close();
+		}
+		$this->textarea( 'self_host_scripts_urls', __( 'Scripts to Self-Host', 'pagespeedplus' ), __( 'One external script URL (or a matching fragment) per line. Any <script src> containing a line is downloaded and served locally. Best for analytics/tag scripts. Test that tracking still works after enabling.', 'pagespeedplus' ), 4, "https://www.googletagmanager.com/gtag/js\nhttps://www.google-analytics.com/analytics.js" );
+
+		// Script Manager — dequeue specific assets, optionally per-URL.
+		$this->textarea( 'script_manager_rules', __( 'Script Manager', 'pagespeedplus' ), __( 'Dequeue scripts/styles by their WordPress handle. One rule per line: "handle" disables it everywhere; "handle | /path*" disables it only on matching URL paths (* wildcard). Removes both the script and style for that handle. Find handles in your page source or with Query Monitor.', 'pagespeedplus' ), 4, "jquery-ui-core\nwp-block-library | /landing*\nwpforms-full | /shop*" );
 	}
 
 	private function render_media() {
@@ -561,6 +581,8 @@ class PSP_Admin {
 		$this->checkbox( 'preload_lcp_image', __( 'Preload LCP Image', 'pagespeedplus' ), __( 'Add a <link rel="preload"> for the first image on the page.', 'pagespeedplus' ) );
 		$this->checkbox( 'add_missing_dimensions', __( 'Add Missing Image Dimensions', 'pagespeedplus' ), __( 'Add width/height attributes to prevent layout shift (CLS).', 'pagespeedplus' ) );
 		$this->checkbox( 'lazyload_iframes', __( 'Lazy Load Iframes', 'pagespeedplus' ), __( 'Native lazy loading for iframes (maps, videos, embeds).', 'pagespeedplus' ) );
+		$this->checkbox( 'lazyload_bg', __( 'Lazy Load Background Images', 'pagespeedplus' ), __( 'Defer inline-style CSS background images (e.g. hero sections) until they near the viewport, via a tiny IntersectionObserver script. Add an above-the-fold hero to the exclusion list below so it isn\'t deferred (it would hurt LCP). Only catches inline background-image styles, not those set in CSS files.', 'pagespeedplus' ) );
+		$this->checkbox( 'lqip_enabled', __( 'Blurry Placeholders (LQIP)', 'pagespeedplus' ), __( 'Show a tiny blurred preview behind lazy-loaded images while the full image loads, reducing the "empty box" effect. Placeholders are generated on upload (needs GD); existing images get them as they\'re re-uploaded or bulk-processed.', 'pagespeedplus' ) );
 		$this->checkbox( 'youtube_facade', __( 'YouTube Facade', 'pagespeedplus' ), __( 'Replace YouTube embeds with a lightweight thumbnail; the player loads on click. Saves 500KB+ per embed.', 'pagespeedplus' ) );
 		$this->textarea( 'lazyload_exclude', __( 'Lazy Load Exclusions', 'pagespeedplus' ), __( 'One pattern per line, matched anywhere in the tag — a filename fragment is enough. Matching images/iframes are never lazy-loaded.', 'pagespeedplus' ), 4, "logo.svg\nhero-banner.jpg\n/wp-content/uploads/icons/" );
 

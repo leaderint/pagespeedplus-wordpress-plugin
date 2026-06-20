@@ -50,8 +50,10 @@ class PSP_Plugin {
 			new PSP_WebP();
 			new PSP_Critical_CSS();
 			new PSP_Fonts();
+			new PSP_Scripts();
 			new PSP_Hints();
 			new PSP_Tweaks();
+			new PSP_Script_Manager();
 			new PSP_Heartbeat();
 			new PSP_CDN();
 			new PSP_Preloader();
@@ -116,8 +118,10 @@ class PSP_Plugin {
 			'class-psp-webp.php',
 			'class-psp-critical-css.php',
 			'class-psp-fonts.php',
+			'class-psp-scripts.php',
 			'class-psp-hints.php',
 			'class-psp-tweaks.php',
+			'class-psp-script-manager.php',
 			'class-psp-heartbeat.php',
 			'class-psp-cdn.php',
 			'class-psp-preloader.php',
