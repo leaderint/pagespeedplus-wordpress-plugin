@@ -1136,10 +1136,12 @@ class PSP_Admin {
 		$defaults = PSP_Options::defaults();
 		$clean    = array();
 		foreach ( $parsed['settings'] as $key => $value ) {
-			if ( ! array_key_exists( $key, $defaults ) ) {
+			// Known keys only, and only scalar values (every default is int/string)
+			// — never let an imported array/object land in a scalar option.
+			if ( ! array_key_exists( $key, $defaults ) || ! is_scalar( $value ) ) {
 				continue;
 			}
-			$clean[ $key ] = is_int( $defaults[ $key ] ) ? (int) $value : ( is_array( $value ) ? $value : (string) $value );
+			$clean[ $key ] = is_int( $defaults[ $key ] ) ? (int) $value : (string) $value;
 		}
 		PSP_Options::update( $clean );
 		PSP_Page_Cache::write_config();
