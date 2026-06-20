@@ -1,0 +1,15 @@
+# Session / tooling cruft (contains local tokens — never commit)
+.gstack/
+
+# Build artifact (regenerated from source)
+pagespeedplus.zip
+*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Dependencies (none committed)
+node_modules/
+vendor/

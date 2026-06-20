@@ -1,0 +1,674 @@
+/**
+ * PageSpeedPlus admin theme.
+ * Brand-matched: deep-blue masthead, gold accents (pagespeedplus.com), monospace readouts.
+ * Zero external requests: system font stacks only (we're a performance plugin).
+ * Everything is scoped under .psp-wrap so nothing bleeds into wp-admin.
+ */
+
+.psp-wrap {
+	--psp-ink:        #14233f;
+	--psp-ink-2:      #1c3360;
+	--psp-ink-3:      #21427a;
+	--psp-paper:      #ffffff;
+	--psp-line:       #e3e8ef;
+	--psp-line-soft:  #eef1f6;
+	--psp-text:       #1c2b3a;
+	--psp-muted:      #62748a;
+	--psp-blue:       #2774d8;
+	--psp-accent:     #ffd11c;
+	--psp-accent-2:   #f0bd00;
+	--psp-accent-ink: #3a2c00;
+	--psp-danger:     #e5484d;
+	--psp-mono:       ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+	--psp-radius:     10px;
+	--psp-shadow:     0 1px 2px rgba(13, 27, 42, .06), 0 8px 24px -12px rgba(13, 27, 42, .12);
+
+	margin: 10px 20px 0 2px;
+	color: var(--psp-text);
+}
+
+.psp-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+}
+
+.psp-wrap, .psp-wrap p, .psp-wrap h2, .psp-wrap h3 {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+/* ------------------------------------------------------------- Masthead */
+
+.psp-masthead {
+	position: relative;
+	overflow: hidden;
+	background:
+		repeating-linear-gradient(-55deg, rgba(255, 255, 255, .022) 0 2px, transparent 2px 14px),
+		radial-gradient(1200px 300px at 85% -120px, rgba(255, 209, 28, .14), transparent 60%),
+		linear-gradient(120deg, var(--psp-ink) 0%, var(--psp-ink-2) 70%, var(--psp-ink-3) 100%);
+	border-radius: var(--psp-radius) var(--psp-radius) 0 0;
+	color: #fff;
+}
+
+.psp-masthead-top {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 22px 28px 16px;
+}
+
+.psp-brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	min-width: 0;
+}
+
+.psp-brandmark {
+	display: inline-flex;
+	align-items: center;
+}
+
+.psp-brandmark img {
+	display: block;
+	height: 46px;
+	width: auto;
+}
+
+.psp-version {
+	font-family: var(--psp-mono);
+	font-size: 11px;
+	color: rgba(255, 255, 255, .55);
+	border: 1px solid rgba(255, 255, 255, .18);
+	border-radius: 999px;
+	padding: 2px 9px;
+	margin-top: 2px;
+}
+
+.psp-masthead-actions {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+/* ----------------------------------------------------------------- Tabs */
+
+.psp-tabs {
+	display: flex;
+	gap: 2px;
+	padding: 0 18px;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.psp-tabs::-webkit-scrollbar { display: none; }
+
+.psp-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 11px 14px 13px;
+	color: rgba(255, 255, 255, .62);
+	font-size: 13px;
+	font-weight: 500;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	white-space: nowrap;
+	transition: color .15s ease;
+}
+
+.psp-tab .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	opacity: .8;
+}
+
+.psp-tab:hover,
+.psp-tab:focus {
+	color: #fff;
+	box-shadow: none;
+	outline: none;
+}
+
+.psp-tab.is-active {
+	color: #fff;
+	border-bottom-color: var(--psp-accent);
+}
+
+.psp-tab.is-active .dashicons { color: var(--psp-accent); opacity: 1; }
+
+/* -------------------------------------------------------------- Content */
+
+.psp-content {
+	background: transparent;
+	padding: 22px 0 40px;
+	max-width: 1060px;
+}
+
+.psp-card {
+	background: var(--psp-paper);
+	border: 1px solid var(--psp-line);
+	border-radius: var(--psp-radius);
+	box-shadow: var(--psp-shadow);
+}
+
+.psp-card + .psp-card { margin-top: 18px; }
+
+.psp-card-head {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	padding: 16px 22px 14px;
+	border-bottom: 1px solid var(--psp-line-soft);
+}
+
+.psp-card-head h2 {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: .02em;
+	color: var(--psp-ink);
+}
+
+.psp-card-head .psp-kicker {
+	font-family: var(--psp-mono);
+	font-size: 10px;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--psp-muted);
+}
+
+/* --------------------------------------------------------- Setting rows */
+
+.psp-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 28px;
+	padding: 18px 22px;
+	border-bottom: 1px solid var(--psp-line-soft);
+	transition: background .12s ease;
+}
+
+.psp-row:last-child { border-bottom: 0; }
+.psp-row:hover { background: #fafbfd; }
+
+.psp-row-info {
+	flex: 0 0 320px;
+	max-width: 320px;
+}
+
+.psp-row-info h3 {
+	margin: 2px 0 4px;
+	font-size: 13.5px;
+	font-weight: 600;
+	color: var(--psp-ink);
+}
+
+.psp-row-info p {
+	margin: 0;
+	font-size: 12.5px;
+	line-height: 1.55;
+	color: var(--psp-muted);
+}
+
+.psp-row-control { flex: 1; min-width: 0; padding-top: 2px; }
+
+.psp-row-control .description {
+	display: block;
+	margin: 7px 0 0;
+	font-size: 12px;
+	color: var(--psp-muted);
+}
+
+/* Inputs */
+
+.psp-row-control input[type="text"],
+.psp-row-control input[type="number"],
+.psp-row-control select,
+.psp-row-control textarea {
+	width: 100%;
+	max-width: 520px;
+	border: 1px solid var(--psp-line);
+	border-radius: 8px;
+	padding: 8px 12px;
+	font-size: 13px;
+	color: var(--psp-text);
+	background: #fff;
+	box-shadow: inset 0 1px 2px rgba(13, 27, 42, .03);
+	transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+.psp-row-control input[type="number"] { max-width: 130px; font-family: var(--psp-mono); }
+.psp-row-control select { max-width: 280px; }
+
+.psp-row-control textarea {
+	font-family: var(--psp-mono);
+	font-size: 12px;
+	line-height: 1.6;
+}
+
+.psp-row-control input:focus,
+.psp-row-control select:focus,
+.psp-row-control textarea:focus {
+	border-color: var(--psp-accent-2);
+	box-shadow: 0 0 0 3px rgba(255, 209, 28, .25);
+	outline: none;
+}
+
+/* Toggle switch */
+
+.psp-toggle {
+	position: relative;
+	display: inline-block;
+	width: 46px;
+	height: 26px;
+	vertical-align: middle;
+	flex: none;
+}
+
+.psp-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+.psp-slider {
+	position: absolute;
+	inset: 0;
+	cursor: pointer;
+	background: #cdd5e0;
+	border-radius: 999px;
+	transition: background .18s ease;
+}
+
+.psp-slider::before {
+	content: "";
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	left: 3px;
+	top: 3px;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 1px 3px rgba(13, 27, 42, .35);
+	transition: transform .22s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.psp-toggle input:checked + .psp-slider {
+	background: var(--psp-accent);
+	box-shadow: inset 0 0 8px rgba(240, 189, 0, .5);
+}
+
+.psp-toggle input:checked + .psp-slider::before {
+	transform: translateX(20px);
+	background: var(--psp-ink);
+}
+
+.psp-toggle input:focus-visible + .psp-slider {
+	box-shadow: 0 0 0 3px rgba(255, 209, 28, .4);
+}
+
+.psp-toggle.is-disabled {
+	opacity: .45;
+	cursor: not-allowed;
+}
+
+.psp-toggle.is-disabled .psp-slider {
+	cursor: not-allowed;
+}
+
+/* -------------------------------------------------------------- Buttons */
+
+.psp-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 18px;
+	border-radius: 8px;
+	border: 1px solid var(--psp-line);
+	background: #fff;
+	color: var(--psp-ink);
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+	transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+
+.psp-btn:hover {
+	background: #f7f9fc;
+	color: var(--psp-ink);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px -4px rgba(13, 27, 42, .2);
+}
+
+.psp-btn:focus { box-shadow: 0 0 0 3px rgba(255, 209, 28, .35); outline: none; color: var(--psp-ink); }
+
+.psp-btn-accent {
+	background: var(--psp-accent);
+	border-color: var(--psp-accent-2);
+	color: var(--psp-accent-ink);
+}
+
+.psp-btn-accent:hover {
+	background: #ffdc4d;
+	color: var(--psp-accent-ink);
+	box-shadow: 0 6px 18px -6px rgba(240, 189, 0, .8);
+}
+
+/* Inline button row with an "or" separator */
+.psp-field-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.psp-field-row--alt {
+	margin-top: 12px;
+}
+
+.psp-or {
+	font-size: 12px;
+	color: var(--psp-muted);
+	text-transform: uppercase;
+	letter-spacing: .08em;
+}
+
+/* Subtle text link (e.g. Refresh list) — de-emphasized vs buttons */
+.psp-link {
+	font-size: 12px;
+	color: var(--psp-muted);
+	text-decoration: none;
+	border-bottom: 1px dotted currentColor;
+	white-space: nowrap;
+}
+
+.psp-link:hover {
+	color: var(--psp-ink);
+}
+
+/* Busy state + spinner (shown while a form submits) */
+.psp-spinner {
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	margin-right: 7px;
+	border: 2px solid rgba(58, 44, 0, .3);
+	border-top-color: var(--psp-accent-ink);
+	border-radius: 50%;
+	vertical-align: -2px;
+	animation: psp-spin .6s linear infinite;
+}
+
+.psp-btn.is-busy {
+	opacity: .8;
+	pointer-events: none;
+}
+
+@keyframes psp-spin {
+	to { transform: rotate(360deg); }
+}
+
+.psp-btn-danger {
+	background: transparent;
+	border-color: rgba(248, 99, 104, .5);
+	color: #f86368;
+}
+
+.psp-btn-danger:hover {
+	background: rgba(229, 72, 77, .12);
+	border-color: #f86368;
+	color: #f86368;
+	box-shadow: 0 4px 14px -6px rgba(229, 72, 77, .5);
+}
+
+.psp-btn-ghost {
+	background: rgba(255, 255, 255, .07);
+	border-color: rgba(255, 255, 255, .22);
+	color: #fff;
+}
+
+.psp-btn-ghost:hover { background: rgba(255, 255, 255, .14); color: #fff; }
+
+/* Sticky save bar */
+
+.psp-savebar {
+	position: sticky;
+	bottom: 0;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 12px;
+	margin-top: 18px;
+	padding: 14px 22px;
+	background: rgba(255, 255, 255, .88);
+	backdrop-filter: blur(8px);
+	border: 1px solid var(--psp-line);
+	border-radius: var(--psp-radius);
+	box-shadow: 0 -6px 24px -14px rgba(13, 27, 42, .25);
+}
+
+.psp-savebar .psp-hint {
+	margin-right: auto;
+	font-size: 12px;
+	color: var(--psp-muted);
+}
+
+/* Prominent "no API key" alert */
+.psp-alert {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 18px;
+	padding: 18px 22px;
+	background: linear-gradient(120deg, #fff4e5, #fff9f0);
+	border: 1px solid #f0b860;
+	border-left: 5px solid #e5a13a;
+	border-radius: var(--psp-radius);
+	box-shadow: var(--psp-shadow);
+}
+
+.psp-alert .dashicons {
+	font-size: 28px;
+	width: 28px;
+	height: 28px;
+	color: #d98300;
+	flex: none;
+}
+
+.psp-alert-body { flex: 1; }
+
+.psp-alert-body strong {
+	display: block;
+	font-size: 15px;
+	color: #7a4a00;
+	margin-bottom: 2px;
+}
+
+.psp-alert-body p {
+	margin: 0;
+	font-size: 13px;
+	color: #875c1a;
+}
+
+.psp-alert .psp-btn { flex: none; }
+
+/* ------------------------------------------------------------ Dashboard */
+
+/* Active-settings counter (replaces the old telemetry stats bar) */
+.psp-meter {
+	display: flex;
+	align-items: center;
+	gap: 22px;
+	padding: 20px 24px;
+	background:
+		repeating-linear-gradient(-55deg, rgba(255, 255, 255, .02) 0 2px, transparent 2px 14px),
+		linear-gradient(120deg, var(--psp-ink) 0%, var(--psp-ink-2) 100%);
+	border-radius: var(--psp-radius);
+	border: 1px solid var(--psp-ink-3);
+	color: #fff;
+	overflow: hidden;
+	animation: psp-rise .45s ease both;
+}
+
+@keyframes psp-rise {
+	from { opacity: 0; transform: translateY(8px); }
+	to   { opacity: 1; transform: none; }
+}
+
+.psp-meter-figure {
+	flex: none;
+	font-family: var(--psp-mono);
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -.02em;
+}
+
+.psp-meter-active {
+	font-size: 46px;
+	color: var(--psp-accent);
+}
+
+.psp-meter-total {
+	font-size: 26px;
+	color: rgba(255, 255, 255, .5);
+}
+
+.psp-meter-body { flex: 1; min-width: 0; }
+
+.psp-meter-title {
+	font-family: var(--psp-mono);
+	font-size: 11px;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, .55);
+	margin-bottom: 5px;
+}
+
+.psp-meter-sub {
+	margin: 0 0 12px;
+	font-size: 13px;
+	color: rgba(255, 255, 255, .82);
+}
+
+.psp-meter-sub strong { color: #fff; }
+
+.psp-meter-bar {
+	height: 7px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, .12);
+	overflow: hidden;
+}
+
+.psp-meter-bar span {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--psp-accent-2), var(--psp-accent));
+	box-shadow: 0 0 12px rgba(255, 209, 28, .5);
+	transition: width .5s ease;
+}
+
+@media (max-width: 600px) {
+	.psp-meter { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+
+/* Card grid below telemetry */
+
+.psp-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 18px;
+	margin-top: 18px;
+}
+
+.psp-grid .psp-card { margin: 0; }
+
+.psp-card-body { padding: 18px 22px; }
+
+.psp-card-body p { font-size: 13px; color: var(--psp-muted); margin: 0 0 14px; }
+
+.psp-card-body p:last-child { margin-bottom: 0; }
+
+/* Status pills, tables, code */
+
+.psp-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-family: var(--psp-mono);
+	font-size: 11px;
+	font-weight: 600;
+	border-radius: 999px;
+	padding: 3px 10px;
+}
+
+.psp-pill.is-on  { background: rgba(240, 189, 0, .14); color: #8a6d00; }
+.psp-pill.is-ok  { background: rgba(34, 153, 84, .14); color: #1d7a44; }
+.psp-pill.is-off { background: rgba(229, 72, 77, .1); color: var(--psp-danger); }
+
+.psp-on  { color: #8a6d00; font-weight: 600; }
+.psp-off { color: var(--psp-danger); font-weight: 600; }
+
+.psp-mini-table {
+	width: 100%;
+	max-width: 560px;
+	margin-top: 12px;
+	border: 1px solid var(--psp-line);
+	border-radius: 8px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+	font-size: 12.5px;
+}
+
+.psp-mini-table th {
+	text-align: left;
+	font-family: var(--psp-mono);
+	font-size: 10px;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--psp-muted);
+	background: #f7f9fc;
+	padding: 8px 12px;
+	border-bottom: 1px solid var(--psp-line);
+}
+
+.psp-mini-table td {
+	padding: 8px 12px;
+	border-bottom: 1px solid var(--psp-line-soft);
+}
+
+.psp-mini-table tr:last-child td { border-bottom: 0; }
+
+.psp-mini-table code {
+	font-family: var(--psp-mono);
+	font-size: 11.5px;
+	background: var(--psp-line-soft);
+	border-radius: 4px;
+	padding: 1px 6px;
+}
+
+.psp-pre {
+	background: var(--psp-ink);
+	color: #d6e3f0;
+	font-family: var(--psp-mono);
+	font-size: 12px;
+	line-height: 1.65;
+	border-radius: 8px;
+	padding: 16px 18px;
+	overflow-x: auto;
+	margin: 0;
+}
+
+/* ----------------------------------------------------------- Responsive */
+
+@media (max-width: 900px) {
+	.psp-row { flex-direction: column; gap: 10px; }
+	.psp-row-info { flex-basis: auto; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.psp-wrap * { animation: none !important; transition: none !important; }
+}
