@@ -39,14 +39,19 @@ class PSP_Updater {
 
 		$endpoint = apply_filters(
 			'psp_update_endpoint',
-			'https://api.pagespeedplus.com/v1/plugin/update'
+			'https://app.pagespeedplus.com/api/plugin/update'
 		);
 
+		// Authenticate with the API key as a Bearer token — same scheme as the
+		// license (/api/sites) and cache-warm calls.
 		$response = wp_remote_post( $endpoint, array(
 			'timeout' => 15,
-			'headers' => array( 'Content-Type' => 'application/json' ),
+			'headers' => array(
+				'Content-Type'  => 'application/json',
+				'Accept'        => 'application/json',
+				'Authorization' => 'Bearer ' . $key,
+			),
 			'body'    => wp_json_encode( array(
-				'key'     => $key,
 				'site'    => home_url(),
 				'version' => PSP_VERSION,
 			) ),

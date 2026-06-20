@@ -3,7 +3,7 @@
  * Plugin Name:       PageSpeedPlus
  * Plugin URI:        https://pagespeedplus.com/wordpress-plugin
  * Description:       All-in-one performance suite: page caching, CSS/JS optimization, delayed JavaScript, lazy loading, Core Web Vitals improvements and more.
- * Version:           1.13.3
+ * Version:           1.13.4
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            PageSpeedPlus
@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'PSP_VERSION', '1.13.3' );
+define( 'PSP_VERSION', '1.13.4' );
 define( 'PSP_FILE', __FILE__ );
 define( 'PSP_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PSP_URL', plugin_dir_url( __FILE__ ) );
